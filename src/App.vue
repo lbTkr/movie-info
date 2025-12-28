@@ -1,6 +1,6 @@
 <template>
     <Navbar />
-    <Event :text="text"/>
+    <Event :text="text[eventTextNum]"/>
 
     <SearchBar :data="data_temp" @searchMovie="searchMovie($event)"/>
 
@@ -10,7 +10,7 @@
         @openModal="isModal=true; selectedMovie=$event"
         @increaseLike="increaseLike($event)"/>
 
-  <Modal :data="data"
+    <Modal :data="data"
         :isModal="isModal"
         :selectedMovie="selectedMovie"
         @closeModal="isModal=false"/>
@@ -34,7 +34,13 @@
                 data : data,
                 data_temp : [...data], // 영화데이터 사본
                 selectedMovie: 0,
-                text: 'NEPLIX 강렬한 운명의 드라마, 경기크리쳐!!!!!!!',
+                text: [
+                    'NETPLIX 강렬한 운명의 드라마, 경기크리처',
+                    '디즈니 100주년 기념작, 위시',
+                    '그 날, 대한민국의 운명이 바뀌었다, 서울의 봄',
+                ],
+                eventTextNum: 0,
+                interval: null,
             }
         },
 
@@ -57,18 +63,28 @@
             showAllMovie(){
                 this.data_temp = [...this.data];
             },
-            mounted(){
-                console.log('mounted')
-            }
         },
 
         components: {
-        Navbar: Navbar,
-        Event: Event,
-        Movies: Movies,
-        Modal: Modal,
-        SearchBar: SearchBar,
-        }
+            Navbar: Navbar,
+            Event: Event,
+            Movies: Movies,
+            Modal: Modal,
+            SearchBar: SearchBar,
+        },
+
+        mounted(){
+            this.interval = setInterval(() => {
+                if(this.eventTextNum == this.text.length - 1){
+                    this.eventTextNum = 0;
+                }else{
+                    this.eventTextNum += 1;
+                }
+            }, 3000);
+        },
+        unmounted(){
+            clearInterval(this.interval); // 인터벌 해제
+        },
     }
 </script>
 
