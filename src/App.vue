@@ -1,32 +1,25 @@
 <template>
   <Navbar />
+  <Event :text="text"/>
 
   <h1>영화정보</h1>
-  <div v-for="(movie, i) in data" :key="i" class="item">
-    <figure>
-      <img :src="`${movie.imgUrl}`" :alt="movie.title">
-    </figure>
+  <Movies :data = "data"
+          @openModal="isModal=true; selectedMovie=$event"
+          @increaseLike="increaseLike($event)"/>
 
-    <div class="info">
-      <h3 class="bg-yellow">{{ movie.title }}</h3>
-      <p>개봉: {{ movie.year }}</p>
-      <p>장르: {{ movie.category }}</p>
-      <button @:click="increaseLike(i)">좋아요</button><span>{{ movie.like }}</span>
-
-      <p>
-        <button @click="isModal=true; selectedMovie=i; showValue(i)">상세보기</button>
-      </p>
-    </div>
-  </div>
-
-  <Modal />
+  <Modal :data="data"
+         :isModal="isModal"
+         :selectedMovie="selectedMovie"
+         @closeModal="isModal=false"/>
 </template>
 
 <script>
   import data from './assets/movies'; // 영화 데이터
-  import Navbar from './components/Navbar.vue';
+  import Navbar from './components/Navbar.vue';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+  import Event from './components/Event.vue';
+  import Movies from './components/Movies.vue';
   import Modal from './components/Modal.vue';
-  
+
   export default {
     name: 'App', //컴포넌트명
 
@@ -36,6 +29,7 @@
         isModal: false,
         data : data,
         selectedMovie: 0,
+        text: 'NEPLIX 강렬한 운명의 드라마, 경기크리쳐!!!!!!!',
       }
     },
 
@@ -44,13 +38,12 @@
       increaseLike(i){
         this.data[i].like += 1; //this를 작성해야 객체 안에 있는 like를 찾아서 함수를 실행함
       },
-      showValue(val){
-        console.log(`val === ${val}`);
-      },
     },
 
     components: {
       Navbar: Navbar,
+      Event: Event,
+      Movies: Movies,
       Modal: Modal,
     }
   }
