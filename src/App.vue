@@ -2,6 +2,8 @@
   <Navbar />
   <Event :text="text"/>
 
+  <SearchBar />
+
   <h1>영화정보</h1>
   <Movies :data = "data"
           @openModal="isModal=true; selectedMovie=$event"
@@ -19,6 +21,7 @@
   import Event from './components/Event.vue';
   import Movies from './components/Movies.vue';
   import Modal from './components/Modal.vue';
+  import SearchBar from './components/SearchBar.vue';
 
   export default {
     name: 'App', //컴포넌트명
@@ -45,6 +48,7 @@
       Event: Event,
       Movies: Movies,
       Modal: Modal,
+      SearchBar: SearchBar,
     }
   }
 </script>
