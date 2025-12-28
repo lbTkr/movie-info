@@ -2,7 +2,7 @@
   <Navbar />
   <Event :text="text"/>
 
-  <SearchBar />
+  <SearchBar :data="data"/>
 
   <h1>영화정보</h1>
   <Movies :data = "data"

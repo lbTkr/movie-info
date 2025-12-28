@@ -19,6 +19,8 @@
 <script>
 export default {
     name: 'MoviesComponent',
+
+    // 부모로부터 받아오는 데이터
     props: {
         data: Array,
     },

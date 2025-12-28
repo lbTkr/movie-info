@@ -2,7 +2,9 @@
     <div class="search-box">
         <input 
             type="search"
-            @change="inputText = $event.target.value"
+            @change="inputText = $event.target.value;
+                                 $event.target.value = '';
+                    "
             placeholder="검색어 입력"
         >
         <!-- v-model => 사용자에게 받은 값을 변수에 자동으로 저장해줌 -->
@@ -18,6 +20,12 @@ export default {
             inputText: "",
         }
     },
+
+    // 부모로부터 받아오는 데이터
+    props: {
+      data: Array,
+    },
+
     // 검사할 항목 추가
     /*
      *  watch: {} 안에 있는 함수명은 검사할 변수명(data() 안의 'inputText')과 동일하게 작성하면 되고
@@ -31,8 +39,12 @@ export default {
      */
     watch: { // watch는 보통 Hook이라고 하는데 사용자가 사용하면 감시하고 중간에 채가는 형태
         inputText(name){
-            if(name !== "액시트"){// 입력한 영화제목이 데이터에 있는지 확인
-                alert('해당하는 영화가 없습니다');
+            const findName = this.data.filter(movie => { // 객체 안의 data는 앞에 this를 붙여야함
+                return movie.title.includes(name);
+            });
+
+            if(findName.length == 0){
+                alert('해당하는 자료가 없습니다');
             }
         }
     }

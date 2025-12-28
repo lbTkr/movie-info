@@ -10,6 +10,8 @@
 <script>
 export default {
     name: 'ModalComponent',
+    
+    // 부모로부터 받아오는 데이터
     props: {
         data: Array,
         isModal: Boolean,
