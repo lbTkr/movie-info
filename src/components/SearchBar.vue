@@ -25,6 +25,7 @@ export default {
     props: {
       data: Array,
     },
+    emits: ["searchMovie"],
 
     // 검사할 항목 추가
     /*
