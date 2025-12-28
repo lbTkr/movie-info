@@ -2,9 +2,9 @@
     <div class="search-box">
         <input 
             type="search"
-            @change="inputText = $event.target.value;
-                                 $event.target.value = '';
-                    "
+            @change="$emit('searchMovie', $event.target.value);
+                inputText = $event.target.value;
+                $event.target.value = '';"
             placeholder="검색어 입력"
         >
         <!-- v-model => 사용자에게 받은 값을 변수에 자동으로 저장해줌 -->

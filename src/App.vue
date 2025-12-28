@@ -2,10 +2,11 @@
   <Navbar />
   <Event :text="text"/>
 
-  <SearchBar :data="data"/>
+  <SearchBar :data="data_temp" @searchMovie="searchMovie($event)"/>
 
-  <h1>영화정보</h1>
-  <Movies :data = "data"
+  <p><button @click="showAllMovie">전체보기</button></p>
+
+  <Movies :data = "data_temp"
           @openModal="isModal=true; selectedMovie=$event"
           @increaseLike="increaseLike($event)"/>
 
@@ -31,6 +32,7 @@
       return {//상태변수: 화면에 자주 업데이트 되는 내용들을 의미
         isModal: false,
         data : data,
+        data_temp : [...data], // 영화데이터 사본
         selectedMovie: 0,
         text: 'NEPLIX 강렬한 운명의 드라마, 경기크리쳐!!!!!!!',
       }
@@ -40,6 +42,15 @@
     methods:{
       increaseLike(i){
         this.data[i].like += 1; //this를 작성해야 객체 안에 있는 like를 찾아서 함수를 실행함
+      },
+      searchMovie(title){ // title: 검색어 키워드
+        // 영화제목이 포함된 데이터를 가져옴
+        this.data_temp = this.data.filter(movie => {
+          return movie.title.includes(title);
+        });
+      },
+      showAllMovie(){
+        this.data_temp = [...this.data];
       },
     },
 

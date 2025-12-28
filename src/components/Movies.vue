@@ -1,4 +1,5 @@
 <template lang="">
+    <h1>영화정보</h1>
     <div v-for="(movie, i) in data" :key="i" class="item">
         <figure>
             <img :src="`${movie.imgUrl}`" :alt="movie.title">
